@@ -3,6 +3,7 @@ package com.escola.api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RequestMapping("/api/v1/")
 public class AlunoController {
-
+	
+	@Autowired
 	private AlunoRepository alunoRepository;
 	
 	@GetMapping("/alunos")
@@ -35,7 +37,7 @@ public class AlunoController {
 		return alunoRepository.save(aluno);
 	}
 	
-	
+	@GetMapping("/alunos/{id}")
 	public ResponseEntity<Optional<Aluno>> getAlunoById(@PathVariable Long id){
 		Optional<Aluno> aluno = alunoRepository.findById(id);
 		return ResponseEntity.ok(aluno);
