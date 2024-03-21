@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,8 +35,8 @@ public class AlunoController {
 	}
 	
 	@PostMapping("/alunos")
-	public Aluno createAluno(@RequestBody Aluno aluno) {
-		return alunoRepository.save(aluno);
+	public ResponseEntity<Aluno> createAluno(@RequestBody Aluno aluno) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(alunoRepository.save(aluno)) ;
 	}
 	
 	@GetMapping("/alunos/{id}")
