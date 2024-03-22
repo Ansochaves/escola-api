@@ -34,16 +34,27 @@ public class AlunoController {
 		return ResponseEntity.status(HttpStatus.OK).body(alunoRepository.findAll());
 	}
 	
+	@GetMapping("/alunos/{id}")
+	public ResponseEntity<Optional<Aluno>> getAlunoById(@PathVariable Long id){
+		
+		return ResponseEntity.status(HttpStatus.OK).body(alunoRepository.findById(id));
+	}
+	
+	@GetMapping("/alunos/email/{email}")
+	public ResponseEntity<Optional<Aluno>> getAlunoByEmail(@PathVariable String email){
+		
+		return ResponseEntity.status(HttpStatus.OK).body(alunoRepository.findByEmail(email));
+	}
+	
+	
+	
+	
 	@PostMapping("/alunos")
 	public ResponseEntity<Aluno> cadastrarAluno(@RequestBody Aluno aluno) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(alunoRepository.save(aluno)) ;
 	}
 	
-	@GetMapping("/alunos/{id}")
-	public ResponseEntity<Optional<Aluno>> getAlunoById(@PathVariable Long id){
-		Optional<Aluno> aluno = alunoRepository.findById(id);
-		return ResponseEntity.ok(aluno);
-	}
+	
 	
 	
 	
