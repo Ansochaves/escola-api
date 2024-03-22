@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,7 +48,23 @@ public class AlunoController {
 	}
 	
 	
-	
+	@PutMapping("/alunos/{id}")
+	public ResponseEntity<Aluno> atualizarAluno(@PathVariable Long id, @RequestBody Aluno aluno){
+		Optional<Aluno> optionalAluno = alunoRepository.findById(id);
+		
+		if (optionalAluno.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+		
+		Aluno alunoExistente = optionalAluno.get();
+		
+		alunoExistente.setNome(aluno.getNome());
+		alunoExistente.setSobrenome(aluno.getSobrenome());
+		alunoExistente.setEmail(aluno.getEmail());
+		alunoExistente.setDataNascimento(aluno.getDataNascimento());
+		
+		return ResponseEntity.status(HttpStatus.OK).body(alunoRepository.save(alunoExistente));
+	}		
 	
 	@PostMapping("/alunos")
 	public ResponseEntity<Aluno> cadastrarAluno(@RequestBody Aluno aluno) {
