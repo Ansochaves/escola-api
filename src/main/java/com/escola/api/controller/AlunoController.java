@@ -30,12 +30,12 @@ public class AlunoController {
 	private AlunoRepository alunoRepository;
 	
 	@GetMapping("/alunos")
-	public List<Aluno> getAllAlunos(){
-		return alunoRepository.findAll();
+	public ResponseEntity<List<Aluno>> getAllAlunos(){
+		return ResponseEntity.status(HttpStatus.OK).body(alunoRepository.findAll());
 	}
 	
 	@PostMapping("/alunos")
-	public ResponseEntity<Aluno> createAluno(@RequestBody Aluno aluno) {
+	public ResponseEntity<Aluno> cadastrarAluno(@RequestBody Aluno aluno) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(alunoRepository.save(aluno)) ;
 	}
 	
@@ -44,6 +44,10 @@ public class AlunoController {
 		Optional<Aluno> aluno = alunoRepository.findById(id);
 		return ResponseEntity.ok(aluno);
 	}
+	
+	
+	
+
 	
 	
 	
