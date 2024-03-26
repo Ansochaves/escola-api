@@ -40,7 +40,7 @@ public class TurmaController {
 	
 	@GetMapping("/turmas/nome/{nome}")
 	public ResponseEntity<Optional<List<Turma>>> getAllTurmaByNome(@PathVariable String nome){
-		return ResponseEntity.status(HttpStatus.OK).body(turmaRepository.findByNomeLike(nome));
+		return ResponseEntity.status(HttpStatus.OK).body(turmaRepository.findByNomeLike(nome + "%"));
 	}
 	
 	@PostMapping("/turmas")
